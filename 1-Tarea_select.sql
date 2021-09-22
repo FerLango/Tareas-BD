@@ -4,19 +4,36 @@ from suppliers s
 where s.contact_title = 'Sales Representative';
 
 /*Qué contactos de proveedores no son marketing managers?*/
-select s.contact_name 
+select s.contact_name, s.contact_title 
 from suppliers s 
 where s.contact_title != 'Marketing Manager';
 
 /*Cuales órdenes no vienen de clientes en Estados Unidos?*/
-select o.order_id, o.ship_country 
+select count(*)
 from orders o 
 where o.ship_country != 'USA';
+
+select count(*)
+from orders o 
+join customers c using (customer_id)
+where c.country !='USA';
 
 /*Qué productos de los que transportamos son quesos?*/
 select p.product_name 
 from products p 
 where p.category_id = 4;
+
+select p.product_name 
+from products p 
+where p.category_id = (
+				select c.category_id
+				from categories c
+				where c.description='Cheeses');
+			
+select distinct od.product_id, p.product_name, c.category_id 
+from order_details od join products p using (product_id)
+join categories c using (category_id)
+where c.category_name = 'Dairy Products';
 
 /*Qué ordenes van a Bélgica o Francia?*/
 select o.order_id, o.ship_country 
