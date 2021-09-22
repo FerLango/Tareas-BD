@@ -1,3 +1,4 @@
 # Tareas-BD
 
-1.   [Select northwind](https://github.com/FerLango/Tareas-BD/blob/main/1-Tarea_select.sql)
+1. [Select northwind](https://github.com/FerLango/Tareas-BD/blob/main/1-Tarea_select.sql)
+2. [Join y select northwind](https://github.com/FerLango/Tareas-BD/blob/main/2-Tarea_examen_1.sql)
