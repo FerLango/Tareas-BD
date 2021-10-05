@@ -35,14 +35,14 @@ order by o.freight desc limit 1;
 
 --Cómo creamos una columna en customers que nos diga si un cliente es bueno, regular, o malo?
 select c.company_name, /*od.unit_price, od.quantity, od.discount,*/ 
-	sum(case when od.discount >0 then (od.unit_price*od.quantity*(1-od.discount)) else (od.unit_price*od.quantity) end) as total  
+	sum(od.unit_price*od.quantity*(1-od.discount)) as total  
 from customers c 
 	join orders o using (customer_id)
 	join order_details od using (order_id)
 group by c.company_name
 order by total;
 
-
+--create view nombre as
 select t.company_name, t.total,
 	case 
 		when t.total < 10000 then 'malo'
@@ -51,12 +51,13 @@ select t.company_name, t.total,
 	end as categoria
 from (
 	select c.company_name, /*od.unit_price, od.quantity, od.discount,*/ 
-		sum(case when od.discount >0 then (od.unit_price*od.quantity*(1-od.discount)) else (od.unit_price*od.quantity) end) as total  
+		sum(od.unit_price*od.quantity*(1-od.discount)) as total  
 	from customers c 
 		join orders o using (customer_id)
 		join order_details od using (order_id)
 	group by c.company_name
-) as t
+	order by total
+) as t;
 
 --Qué colaboradores chambearon durante las fiestas de navidad?
 select e.first_name, e.last_name, o.order_date, extract(month from o.order_date) as mes, extract(day from o.order_date) as dia
